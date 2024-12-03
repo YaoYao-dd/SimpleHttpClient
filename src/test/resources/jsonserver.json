@@ -1,0 +1,19 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "James Smith",
+      "age": 25
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "age": 40
+    },
+    {
+      "id": "3",
+      "name": "Mike Smith",
+      "age": 33
+    }
+  ]
+}
