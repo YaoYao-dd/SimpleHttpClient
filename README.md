@@ -10,6 +10,8 @@ NOW, along with JDK11, Java HttpClient API implements the client-side of the mos
 
 But it does NOT support POJO conversion automatically, this is main point I created this Simple library.
 
+SimpleHttpClient:
+
 1. It supports automatically POJO conversion(use Gson as default serialization engine, easy to extend to other engines).
 2. Very friendly use, compare to official JDK http client.
 3. Similar semantics for sync and async http calls.
