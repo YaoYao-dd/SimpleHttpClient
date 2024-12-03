@@ -4,7 +4,7 @@ Prior to JDK 11, the built-in http client URLConnection is useless at all.
 then the opensource offers many convenient tools, like apache httpclient, spring restTemplate,
 OkHttp, and even openFeign(declarative http client), but none of them support synchronous and asynchrous at the same time,
 SpringWebFlux offers a Webclient looks cool, but it is highly coupled with webflux, netty offers good library for
-asynchronous client, but still not convenient.
+asynchronous client, but not convenient at all.
 
 NOW, along with JDK11, Java HttpClient API implements the client-side of the most recent HTTP standards. It supports HTTP/1.1 and HTTP/2, both synchronous and asynchronous programming models.
 
