@@ -13,7 +13,8 @@ But it does NOT support POJO conversion automatically, this is main point I crea
 1. It supports automatically POJO conversion(use Gson as default serialization engine, easy to extend to other engines).
 2. Very friendly use, compare to official JDK http client.
 3. Similar symantic for sync and async http calls.
-4. Support default read timeout at client level.
+4. Supports default read timeout at client level.
+5. Throw Exceptional when httpcode is not 2xx, most applications favorite this behavior.
 
 # how to use?
 ```java
@@ -40,8 +41,9 @@ But it does NOT support POJO conversion automatically, this is main point I crea
     }
 
 ```
-see [Sample](src/test/java/org/yaod/shc/httpclient/SsHttpClientTest.java)
-the repo offers [json](src/test/resources/jsonserver.json) for testing, use https://www.npmjs.com/package/json-server to start a mock webserver if you like.
+See [Sample in TestCase](src/test/java/org/yaod/shc/httpclient/SsHttpClientTest.java)
+
+This repo offers [json](src/test/resources/jsonserver.json) for testing, use https://www.npmjs.com/package/json-server to start a mock webserver if you like.
 
 Thanks
 
