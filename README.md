@@ -12,7 +12,7 @@ But it does NOT support POJO conversion automatically, this is main point I crea
 
 1. It supports automatically POJO conversion(use Gson as default serialization engine, easy to extend to other engines).
 2. Very friendly use, compare to official JDK http client.
-3. Similar symantic for sync and async http calls.
+3. Similar semantics for sync and async http calls.
 4. Supports default read timeout at client level.
 5. Throw Exceptional when httpcode is not 2xx, most applications favorite this behavior.
 
