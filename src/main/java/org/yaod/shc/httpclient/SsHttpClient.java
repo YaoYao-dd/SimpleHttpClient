@@ -15,6 +15,8 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  * @author Yaod
@@ -26,10 +28,11 @@ public class SsHttpClient implements AutoCloseable{
 
     private
 
-    SsHttpClient(HttpClient httpClientInternal, ObjectSerializer serializer, Duration readTimeout) {
+    SsHttpClient(HttpClient httpClientInternal, ObjectSerializer serializer,  Duration readTimeout) {
         this.defaultReadTimeout = readTimeout;
         this.serializer=serializer;
         this.httpClientInternal = httpClientInternal;
+        
     }
 
     public <T> T send(HttpRequest request, Class<T> responseClazz) throws IOException, InterruptedException {
@@ -159,6 +162,7 @@ public class SsHttpClient implements AutoCloseable{
         private ProxySelector proxy;
         private Authenticator authenticator;
         private ObjectSerializer serializer;
+        private Executor executor;
 
 
         Builder(){
@@ -188,8 +192,13 @@ public class SsHttpClient implements AutoCloseable{
             if(this.serializer==null){
                 this.serializer=new GsonObjectSerializer();
             }
+            if(this.executor==null){
+                this.executor= Executors.newVirtualThreadPerTaskExecutor();
+            }
+            builderInternal.executor(this.executor);
+
             var httpClientInternal= builderInternal.build();
-            return new SsHttpClient(httpClientInternal,this.serializer, this.readTimeout);
+            return new SsHttpClient(httpClientInternal,this.serializer,  this.readTimeout);
         }
 
         public Builder version(HttpClient.Version version) {

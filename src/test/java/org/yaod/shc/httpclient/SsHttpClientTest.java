@@ -6,6 +6,9 @@ import org.junit.Test;
 
 
 import java.io.IOException;
+import java.net.http.HttpClient;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -94,6 +97,28 @@ public class SsHttpClientTest {
         user.setName("James Smith");
         user.setAge(originalAge);
         User finalResult =ssHttpClient.putAsync(user,baseUrl+"/1", User.class).get();
+    }
+
+
+    @Test
+    public void test_massive_async_get() throws IOException, InterruptedException, ExecutionException {
+        //when using asynchronous mode, it will utilize virtual thread to conduct http call concurrently.
+        //it means very small number of physical thread, no much resource occupied.
+        //still get very good performance(less total latency) because of IO multiplexing.
+        //of course, you can switch back traditional thread model using builder.executor() method.
+
+        long start = System.currentTimeMillis();
+        List<CompletableFuture<String>> taskList=new ArrayList<>();
+        for(int idx=0;idx<100;idx++){
+         taskList.add(ssHttpClient.getAsync("http://localhost:8081/accounts/get", String.class).thenApply(x->{
+             System.out.println(x);return x;
+         }));
+        }
+
+        var allCf=CompletableFuture.allOf(taskList.toArray(new  CompletableFuture[]{}));
+        allCf.get();
+        long duration=(System.currentTimeMillis()-start)/1000;
+        System.out.println(duration);
     }
 
 }
